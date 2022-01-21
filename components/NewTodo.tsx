@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { noticationAction } from "../store/notification-slice";
+import { notificationAction } from "../store/notification-slice";
 import { useAddTaskMutation } from "../store/tasks";
 import { Task } from "../store/types";
 
@@ -35,9 +35,9 @@ const NewTodo: React.FC = () => {
 
         addTask(task).then((res) => {
             dispatch(
-                noticationAction.showNotification({
+                notificationAction.showNotification({
                     text: "Task added",
-                    type: "Success",
+                    type: "success",
                 })
             );
         });

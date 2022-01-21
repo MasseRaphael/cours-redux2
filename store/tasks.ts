@@ -4,7 +4,7 @@ import { Task } from "./types"
 export const taskApi = createApi({
     reducerPath: "tasksApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://61e96b4e7bc0550017bc628e.mockapi.io/tasks/",
+        baseUrl: "https://api.gaylordjulien.dev/",
     }),
     tagTypes: ["Tasks"],
     endpoints: (builder) => ({

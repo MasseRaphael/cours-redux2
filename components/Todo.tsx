@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useUpdateTaskStatusMutation, useDeleteTaskMutation, useGetTasksQuery } from "../store/tasks";
 import { Task } from "../store/types";
 import { useDispatch } from "react-redux";
-import { noticationAction } from "../store/notification-slice";
+import { notificationAction } from "../store/notification-slice";
 
 const Text = styled.h5<{isDone ? : boolean}>`
 margin-bottom: 0px;
@@ -48,7 +48,7 @@ const Todo: React.FC= () => {
         setUpdatingTaskId(id);
         updateTaskStatus({id, status }).then((res) => {
             dispatch(
-                noticationAction.showNotification({
+                notificationAction.showNotification({
                     text: "Task updated",
                     type: "success",
                 })
@@ -56,11 +56,11 @@ const Todo: React.FC= () => {
         });
     };
 
-    const deleTaskHandler = (id: Task["id"]) => {
+    const deleteTaskHandler = (id: Task["id"]) => {
         setDeletingTaskId(id);
         deleteTask(id).then((res) => {
             dispatch(
-                noticationAction.showNotification({
+                notificationAction.showNotification({
                     text: "Task deleted",
                     type: "success",
                 })
@@ -91,9 +91,24 @@ const Todo: React.FC= () => {
                            }
                            />
                        </CheckBoxGroup>
+                       <Text isDone={task.status === "done"}>{task.task_content}</Text>
+                       <Div>
+                           <Text>{task.status}</Text>
+                           <Button
+                           type="submit"
+                           role="button"
+                           name="submit"
+                           id={task.id}
+                           onClick={() => deleteTaskHandler(task.id)}>
+                               {( isDeleting || isFetching) && deletingTaskId === task.id
+                               ? "Deleting"
+                            : "Delete"}
+                           </Button>
+                       </Div>
                    </TaskDiv> 
                 ))}
             </TaskMain>
+            { isLoading && "Loading" }
         </>
     );
 };
