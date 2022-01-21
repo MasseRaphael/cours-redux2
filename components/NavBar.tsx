@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../store/store";
@@ -9,53 +9,67 @@ const Header = styled.div``;
 
 const LogoDiv = styled.div``;
 const Logo = styled.div`
-span {
+  span {
     cursor: pointer;
-    color: red;
+    color: var(--primary-color);
     text-decoration: none;
     :hover {
-        background-color: red;
-        color: white;
+      background-color: var(--primary-color);
+      color: var(--invert-font-color);
     }
-}`;
+  }
+`;
 
 const Menu = styled.nav``;
 
 const NavBar = () => {
-    const dispatch = useDispatch();
-    const themeMode = useSelector((state: RootState) => state.theme.mode);
-    const [isDarkMode, setIsDarkMode] = useState<boolean>();
-    useEffect(() => {
-        setIsDarkMode(themeMode === "dark")
-    }, [themeMode]);
-    const themeChangeHandler = (mode: ThemeMode) => {
-        dispatch(uiActions.toggle(mode));
-        setIsDarkMode(mode === "dark" ? true : false);
-        localStorage.setItem("theme", mode);
-    };
-    return(
-        <>
-        <Header>
-            <LogoDiv>
-                <Logo>
-                    <span>ToDO Next Js</span>
-                </Logo>
-            </LogoDiv>
-            <Menu>
-                <ul>
-                    <li>
-                        <a
-                        onClick={() => themeChangeHandler("light")}
-                        href="#"></a>
-                    </li>
-                    <li>
-                        <a
-                        onClick={() => themeChangeHandler("dark")}
-                        href="#"></a>
-                    </li>
-                </ul>
-            </Menu>
-        </Header>
-        </>
-    )
-}
+  const dispatch = useDispatch();
+  const themeMode = useSelector((state: RootState) => state.theme.mode);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>();
+  useEffect(() => {
+    setIsDarkMode(themeMode === "dark");
+  }, [themeMode]);
+
+  const themeChangeHandler = (mode: ThemeMode) => {
+    dispatch(uiActions.toggle(mode));
+    setIsDarkMode(mode === "dark" ? true : false);
+    localStorage.setItem("theme", mode);
+  };
+
+  return (
+    <>
+      <Header className="terminal-nav">
+        <LogoDiv className="terminal-logo">
+          <Logo className="logo">
+            <span className="no-style">TodoApp</span>
+          </Logo>
+        </LogoDiv>
+        <Menu className="terminal-menu">
+          <ul>
+            <li>
+              <a
+                onClick={() => themeChangeHandler("light")}
+                className={`menu-item${isDarkMode ? "" : " active"}`}
+                href="#"
+              >
+                Light
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={() => themeChangeHandler("dark")}
+                className={`menu-item${isDarkMode ? " active" : ""}`}
+                href="#"
+              >
+                Dark
+              </a>
+            </li>
+          </ul>
+        </Menu>
+      </Header>
+     
+    </>
+  );
+};
+
+export default NavBar;
