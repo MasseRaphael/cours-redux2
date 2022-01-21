@@ -41,7 +41,8 @@ const NewTodo: React.FC = () => {
                 })
             );
         });
-        return(
+    };
+    return(
             <Form onSubmit={addTaskHandler}>
                 <FormItem>
                     <Input
@@ -70,7 +71,6 @@ const NewTodo: React.FC = () => {
                 </Button>
             </Form>
         );
-    };
 };
 
 export default NewTodo;

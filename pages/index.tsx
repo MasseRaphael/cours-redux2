@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { lightTheme, darkTheme, GlobalStyles } from "../theme"
 import NavBar from "../components/NavBar"
+import NewTodo from '../components/NewTodo';
+import Todo from '../components/Todo';
 
 
 
@@ -15,7 +17,8 @@ const Home: NextPage = () => {
     <ThemeProvider theme={themeMode === "light" ? lightTheme : darkTheme}>
 <GlobalStyles />
 <NavBar />
-
+<Todo />
+<NewTodo />
     </ThemeProvider>
   
   )
